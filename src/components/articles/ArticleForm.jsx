@@ -4,9 +4,9 @@ import React, { useState } from 'react'
 const ArticleForm = ({history}) => {
     const initialState = { title: '', text: '' }
     const [values, setValues] = useState(initialState)
-    const handleSubmit = e => {
+    const handleSubmit = (e) => {
         // prevent HTML default submission
-          e.preventDefault()
+          e.preventDefault();
         
         // POST request to RESTful route (to be defined in backend)
           fetch('/articles', {
@@ -14,15 +14,16 @@ const ArticleForm = ({history}) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(values)
           })
-          .then(response => {
+          .then((response) => {
             if (response.ok) {
               alert('Article successfully created')
               return  response.json()
                         .then(article => {
-                        history.push(`/articles/${article._id}`)
-                      })
+                        history.push(`/articles/${article._id}`);
+                      });
             }
           })
+          .catch((error) => alert(error));
     }
 
     return (
